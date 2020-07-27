@@ -123,6 +123,7 @@ public class ResourceCentre {
 	}
 
 	//================================= Option 1 View =================================
+	//Completed - Liang Kok
 	public static String retrieveAllCamcorder(ArrayList<Camcorder> camcorderList) {
 		String output = "";
 
