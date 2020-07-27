@@ -181,6 +181,7 @@ public class ResourceCentre {
 	}
 	
 	//================================= Option 3 Loan =================================
+	//Completed
 	public static boolean doLoanCamcorder(ArrayList<Camcorder> camcorderList, String tag, String dueDate) {
 		
 		boolean isLoaned = false;
