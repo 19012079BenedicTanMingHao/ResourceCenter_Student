@@ -82,6 +82,29 @@ public class ResourceCentreTest {
 	public void retrieveAllChromebookTest() {
 		//fail("Not yet implemented");
 		// write your code here
+		
+		// Test if item list is not null
+				assertNotNull("Check if there is an arraylist to loan from", camcorderList);
+
+				// Test if the item list has items to loan
+				ResourceCentre.addCamcorder(camcorderList, cc1);
+				assertEquals("Test if there is an item in the list", 1, camcorderList.size());
+
+				// Test if asset tag input of item needs to be loaned is present in item list
+				ResourceCentre.addCamcorder(camcorderList, cc1);
+				String testInput = "CC0011";
+				String camcorderTag = camcorderList.get(0).getAssetTag();
+
+				assertEquals("Test if input matches camcorder tag", testInput, camcorderTag);
+
+				// Test if availability of the item loaned is changed and due date entered
+				ResourceCentre.addCamcorder(camcorderList, cc1);
+				camcorderList.get(0).setIsAvailable(false);
+				camcorderList.get(0).setDueDate("21/7");
+				String allCamcorder = ResourceCentre.retrieveAllCamcorder(camcorderList);
+
+				String testOutput = String.format("%-10s %-30s %-10s %-10s %-20d\n", "CC0011", "Nikon HDSLR", "No", "21/7", 40);
+
 	}
 
 	@Test
@@ -89,12 +112,49 @@ public class ResourceCentreTest {
 		//fail("Not yet implemented");
 		// write your code here
 		
+		//Test if the list is populated so that an item can be loaned
+				assertNotNull("Test if list is available", chromebookList);
+				ResourceCentre.addChromebook(chromebookList, cb1);
+				ResourceCentre.addChromebook(chromebookList, cb2);
+				
+				//Error Condition
+				Boolean isReturned = ResourceCentre.doLoanChromebook(chromebookList, "CB0011", "8-8-2020");
+				assertFalse("Is available Chromebook CB0011 loaned (true)?", isReturned);
+						
+				//Normal Condition
+				cb2.setIsAvailable(false);
+				isReturned = ResourceCentre.doLoanChromebook(chromebookList, "CB0012", "8-8-2020");
+				assertFalse("Is loaned Chromebook CB0012 loaned (false)?", isReturned);
+						
+				//Error
+				isReturned = ResourceCentre.doLoanChromebook(chromebookList, "CB0013", "8-8-2020");
+				assertFalse("Is non-existent Chromebook CB0013 loaned (false)?", isReturned);
+			
+
 	}
 	
 	@Test
 	public void doLoanChromebookTest() {
-		//fail("Not yet implemented");
+		// fail("Not yet implemented");
 		// write your code here
+		
+		//Test if the list is populated so that an item can be loaned
+		assertNotNull("Test if list is available", chromebookList);
+		ResourceCentre.addChromebook(chromebookList, cb1);
+		ResourceCentre.addChromebook(chromebookList, cb2);
+		
+		//Error Condition
+		Boolean isReturned = ResourceCentre.doLoanChromebook(chromebookList, "CB0011", "8-8-2020");
+		assertFalse("Is available Chromebook CB0011 loaned (true)?", isReturned);
+				
+		//Normal Condition
+		cb2.setIsAvailable(false);
+		isReturned = ResourceCentre.doLoanChromebook(chromebookList, "CB0012", "8-8-2020");
+		assertFalse("Is loaned Chromebook CB0012 loaned (false)?", isReturned);
+				
+		//Error
+		isReturned = ResourceCentre.doLoanChromebook(chromebookList, "CB0013", "8-8-2020");
+		assertFalse("Is non-existent Chromebook CB0013 loaned (false)?", isReturned);
 	}
 	
 	@Test
